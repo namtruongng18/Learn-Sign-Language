@@ -1,0 +1,1301 @@
+/* --- Global & Reset --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* --- Background --- */
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(125% 125% at 50% 90%, #fff 40%, #6366f1 100%);
+  transition: background 0.5s ease;
+}
+
+body.dark .background {
+  background: radial-gradient(125% 125% at 50% 100%, #000000 40%, #350136 100%);
+}
+
+/* --- Navbar --- */
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark .navbar {
+  background-color: #1a1a1a;
+  box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6366f1;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+body.dark .navbar-links a {
+  color: #e0e0e0;
+}
+
+.navbar-links a:hover {
+  color: #6366f1;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* --- Search Form (Uiverse) --- */
+.form {
+  --timing: 0.3s;
+  --width-of-input: 200px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #f5f5f5;
+  --border-color: #6366f1;
+  --border-radius: 30px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg);
+}
+
+body.dark .form {
+  --input-bg: #333;
+}
+
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  border: none;
+  color: inherit;
+}
+
+body.dark .input {
+  color: #fff;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.form button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+  cursor: pointer;
+}
+
+.reset {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
+
+.input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Login Button (Star Effect) --- */
+.btn-star-login {
+  position: relative;
+  padding: 8px 25px; /* Điều chỉnh padding cho gọn hơn một chút */
+  background: #6366f1; /* Đổi sang màu chủ đạo của web bạn */
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  border: 3px solid #6366f1;
+  border-radius: 8px;
+  box-shadow: 0 0 0 #6366f18c;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  text-decoration: none; /* Quan trọng vì dùng thẻ 'a' */
+  display: inline-flex;  /* Giữ cho nút căn giữa tốt */
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-star-login .star-1 {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 20px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fff);
+  z-index: -5;
+  transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+}
+
+.btn-star-login .star-2 {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fff);
+  z-index: -5;
+  transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.btn-star-login .star-3 {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fff);
+  z-index: -5;
+  transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.btn-star-login .star-4 {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  width: 8px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fff);
+  z-index: -5;
+  transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.btn-star-login .star-5 {
+  position: absolute;
+  top: 25%;
+  left: 45%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fff);
+  z-index: -5;
+  transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.btn-star-login .star-6 {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fff);
+  z-index: -5;
+  transition: all 0.8s ease;
+}
+
+.btn-star-login:hover {
+  background: transparent;
+  color: #6366f1;
+  box-shadow: 0 0 20px #6366f18c;
+}
+
+.btn-star-login:hover .star-1 {
+  position: absolute;
+  top: -80%;
+  left: -30%;
+  width: 25px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #6366f1);
+  z-index: 2;
+}
+
+.btn-star-login:hover .star-2 {
+  position: absolute;
+  top: -25%;
+  left: 10%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #6366f1);
+  z-index: 2;
+}
+
+.btn-star-login:hover .star-3 {
+  position: absolute;
+  top: 55%;
+  left: 25%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #6366f1);
+  z-index: 2;
+}
+
+.btn-star-login:hover .star-4 {
+  position: absolute;
+  top: 30%;
+  left: 80%;
+  width: 8px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #6366f1);
+  z-index: 2;
+}
+
+.btn-star-login:hover .star-5 {
+  position: absolute;
+  top: 25%;
+  left: 115%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #6366f1);
+  z-index: 2;
+}
+
+.btn-star-login:hover .star-6 {
+  position: absolute;
+  top: 5%;
+  left: 60%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #6366f1);
+  z-index: 2;
+}
+
+.fil0 {
+  fill: #6366f1; /* Đổi màu sao cho hợp với theme khi hover */
+}
+/* Khi chưa hover, sao có màu trắng để ẩn đi trên nền tím */
+.btn-star-login .fil0 {
+    fill: #ffffff; 
+}
+/* Khi hover, nút trong suốt, sao đổi màu tím cho nổi bật */
+.btn-star-login:hover .fil0 {
+    fill: #6366f1;
+}
+
+/* --- Dark Mode Switch --- */
+.switch-container {
+    position: relative;
+    width: 3.5em;
+    height: 2em;
+    flex-shrink: 0;
+}
+
+.switch {
+  font-size: 17px;
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #20262c;
+  transition: 0.5s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 50%;
+  left: 10%;
+  bottom: 15%;
+  box-shadow: inset 8px -4px 0px 0px #ececd9, -4px 1px 4px 0px #dadada;
+  background: #20262c;
+  transition: 0.5s;
+}
+
+.decoration {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 2px;
+  border-radius: 50%;
+  right: 20%;
+  top: 15%;
+  background: #e5f041e6;
+  backdrop-filter: blur(10px);
+  transition: all 0.5s;
+  box-shadow: -7px 10px 0 #e5f041e6, 8px 15px 0 #e5f041e6, -17px 1px 0 #e5f041e6, -20px 10px 0 #e5f041e6, -7px 23px 0 #e5f041e6, -15px 25px 0 #e5f041e6;
+}
+
+input:checked ~ .decoration {
+  transform: translateX(-20px);
+  width: 10px;
+  height: 10px;
+  background: white;
+  box-shadow: -12px 0 0 white, -6px 0 0 1.6px white, 5px 15px 0 1px white, 1px 17px 0 white, 10px 17px 0 white;
+}
+
+input:checked + .slider {
+  background-color: #5494de;
+}
+
+input:checked + .slider:before {
+  transform: translateX(100%);
+  box-shadow: inset 15px -4px 0px 15px #efdf2b, 0 0 10px 0px #efdf2b;
+  background-color: #5494de;
+}
+
+/* --- Content Area & Morphing Text Animation --- */
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: #20262c;
+  transition: color 0.5s ease;
+}
+
+body.dark .content {
+  color: #ffffff;
+}
+
+/* Morphing Text Styles */
+.morphing-container {
+    display: inline-block;
+    perspective: 1000px;
+    margin-bottom: 2rem; /* Tạo khoảng cách với Text Reveal mới */
+}
+
+.morphing-text {
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #9333ea, #db2777, #2563eb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 0 10px;
+
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1) rotateX(0deg);
+    
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@media (min-width: 768px) {
+    .morphing-text {
+        font-size: 4.5rem;
+    }
+}
+
+.morphing-text.exit {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.2) rotateX(90deg);
+}
+
+.morphing-text.enter-start {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.8) rotateX(-90deg);
+    transition: none !important;
+}
+
+/* --- LOGIN FORM STYLES (GIỮ NGUYÊN) --- */
+.login {
+  width: 340px;
+  background: #2c2c2c;
+  padding: 47px;
+  padding-bottom: 57px;
+  color: #fff;
+  border-radius: 17px;
+  padding-bottom: 50px;
+  font-size: 1.3em;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+body:not(.dark) .login {
+    background: #ffffff;
+    color: #2c2c2c;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+body:not(.dark) .login input[type="text"],
+body:not(.dark) .login input[type="password"] {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.login input[type="text"],
+.login input[type="password"] {
+  opacity: 1;
+  display: block;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 13px 18px;
+  margin: 20px 0 0 0;
+  font-size: 0.8em;
+  border-radius: 100px;
+  background: #3c3c3c;
+  color: #fff;
+}
+
+.login input:focus {
+  animation: bounce 1s;
+  -webkit-appearance: none;
+}
+
+.login input[type=submit],
+.login input[type=button],
+.h1 {
+  border: 0;
+  outline: 0;
+  width: 100%;
+  padding: 13px;
+  margin: 40px 0 0 0;
+  border-radius: 500px;
+  font-weight: 600;
+  animation: bounce2 1.6s;
+}
+
+.h1 {
+  padding: 0;
+  position: relative;
+  top: -35px;
+  display: block;
+  margin-bottom: -0px;
+  font-size: 1.3em;
+}
+
+.btn {
+  background: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  color: #fff;
+  padding: 16px !important;
+}
+
+.btn:hover {
+  background: linear-gradient(144deg, #1e1e1e , 20%,#1e1e1e 50%,#1e1e1e );
+  color: rgb(255, 255, 255);
+  padding: 16px !important;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+body:not(.dark) .btn:hover {
+    background: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+    color: #fff;
+    opacity: 0.8;
+}
+
+.login input[type=text] {
+  animation: bounce 1s;
+  -webkit-appearance: none;
+}
+
+.login input[type=password] {
+  animation: bounce1 1.3s;
+}
+
+.ui {
+  font-weight: bolder;
+  background: -webkit-linear-gradient(#B563FF, #535EFC, #0EC8EE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: 4px solid transparent;
+  border-image: linear-gradient(0.25turn, #535EFC, #0EC8EE, #0EC8EE);
+  border-image-slice: 1;
+  display: inline;
+}
+
+@media only screen and (max-width: 600px) {
+  .login {
+    width: 90%;
+    padding: 3em;
+  }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(-250px); opacity: 0; }
+}
+@keyframes bounce1 {
+  0% { opacity: 0; }
+  40% { transform: translateY(-100px); opacity: 0; }
+}
+@keyframes bounce2 {
+  0% { opacity: 0; }
+  70% { transform: translateY(-20px); opacity: 0; }
+}
+
+/* --- NEW: TEXT REVEAL ANIMATION STYLES --- */
+.text-reveal-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1024px; /* max-w-5xl */
+    margin: 0 auto;
+    padding: 1rem;
+    
+    /* Font styles matching original React component (text-2xl font-bold) */
+    font-size: 1.5rem; 
+    line-height: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Mỗi từ riêng biệt */
+.reveal-word {
+    display: inline-block;
+    margin-right: 12px;
+    margin-top: 10px;
+
+    /* Trạng thái ban đầu (hidden) */
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(10px);
+
+    /* Animation */
+    /* forwards giữ trạng thái cuối cùng sau khi chạy xong */
+    animation: revealWord 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Keyframes tái tạo hiệu ứng visible của framer-motion */
+@keyframes revealWord {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+}
+
+/* --- Nav Links Star Effect --- */
+.nav-star-link {
+    position: relative;
+    text-decoration: none;
+    color: #333;       /* Màu chữ mặc định */
+    font-weight: 500;
+    padding: 5px 8px;  /* Thêm chút khoảng cách để sao có chỗ bay */
+    transition: color 0.3s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+/* Dark mode cho link menu */
+body.dark .nav-star-link {
+    color: #e0e0e0;
+}
+
+/* Khi hover, đổi màu chữ sang tím */
+.nav-star-link:hover {
+    color: #6366f1;
+}
+
+/* Cấu hình chung cho các ngôi sao trong menu */
+.nav-star-link [class^="star-"] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;        /* Ẩn sao đi khi chưa hover */
+    pointer-events: none;
+    transition: all 0.6s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+    /* Đặt vị trí xuất phát của sao nằm giữa chữ */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+/* Màu của ngôi sao trong menu luôn là màu tím */
+.nav-star-link .fil0 {
+    fill: #6366f1;
+}
+
+/* Kích thước các ngôi sao */
+.nav-star-link .star-1 { width: 20px; }
+.nav-star-link .star-2 { width: 12px; }
+.nav-star-link .star-3 { width: 5px; }
+.nav-star-link .star-4 { width: 8px; }
+.nav-star-link .star-5 { width: 12px; }
+.nav-star-link .star-6 { width: 6px; }
+
+/* Hiệu ứng bay ra khi hover vào link menu */
+.nav-star-link:hover .star-1 { opacity: 1; top: -40%; left: -10%; }
+.nav-star-link:hover .star-2 { opacity: 1; top: -20%; left: 110%; }
+.nav-star-link:hover .star-3 { opacity: 1; top: 120%; left: 20%; }
+.nav-star-link:hover .star-4 { opacity: 1; top: 110%; left: 80%; }
+.nav-star-link:hover .star-5 { opacity: 1; top: 30%; left: 120%; }
+.nav-star-link:hover .star-6 { opacity: 1; top: -10%; left: 60%; }
+
+/* --- Navbar Logo với hiệu ứng ngôi sao --- */
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6366f1;
+  text-decoration: none;  /* Loại bỏ gạch chân của thẻ a */
+  position: relative;     /* Để căn vị trí tuyệt đối cho các ngôi sao bên trong */
+  display: inline-flex;   /* Giúp canh giữa nội dung tốt hơn */
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease; /* Thêm hiệu ứng nhấn nhẹ */
+}
+
+/* Hiệu ứng nhấn nhẹ khi click */
+.navbar-logo:active {
+    transform: scale(0.95);
+}
+
+/* Cấu hình chung cho các ngôi sao */
+.navbar-logo [class^="star-"] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;           /* Ẩn đi khi chưa hover */
+    pointer-events: none; /* Không chặn tương tác chuột */
+    transition: all 0.6s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Luôn bắt đầu từ giữa logo */
+}
+
+/* Màu tím cho ngôi sao của logo */
+.navbar-logo .fil0 { fill: #6366f1; }
+
+/* Kích thước từng ngôi sao (lớn hơn một chút so với menu links) */
+.navbar-logo .star-1 { width: 25px; }
+.navbar-logo .star-2 { width: 15px; }
+.navbar-logo .star-3 { width: 8px; }
+.navbar-logo .star-4 { width: 12px; }
+.navbar-logo .star-5 { width: 18px; }
+.navbar-logo .star-6 { width: 10px; }
+
+/* Vị trí bay ra khi hover vào logo */
+.navbar-logo:hover .star-1 { opacity: 1; top: -60%; left: -30%; }
+.navbar-logo:hover .star-2 { opacity: 1; top: -30%; left: 110%; }
+.navbar-logo:hover .star-3 { opacity: 1; top: 140%; left: 0%; }
+.navbar-logo:hover .star-4 { opacity: 1; top: 120%; left: 80%; }
+.navbar-logo:hover .star-5 { opacity: 1; top: 40%; left: 140%; }
+.navbar-logo:hover .star-6 { opacity: 1; top: -40%; left: 60%; }
+
+/* --- Typewriter Effect Styles --- */
+.typewriter-container {
+    margin-top: 2rem;
+    font-size: 1.5rem; /* Điều chỉnh kích thước chữ tại đây (tương đương text-2xl) */
+    font-weight: bold;
+    color: #20262c;    /* Màu chữ cho Light mode (slate-800) */
+    font-family: monospace; /* Dùng font monospace cho giống hiệu ứng gõ code */
+    min-height: 2.5rem; /* Giữ chiều cao cố định để tránh nhảy layout khi xóa hết chữ */
+}
+
+@media (min-width: 768px) {
+    .typewriter-container {
+        font-size: 2.25rem; /* Kích thước lớn hơn trên màn hình to (md:text-4xl) */
+    }
+}
+
+body.dark .typewriter-container {
+    color: #e2e8f0; /* Màu chữ cho Dark mode (slate-200) */
+}
+
+.typewriter-cursor {
+    color: #6366f1; /* Màu con trỏ (dùng màu chủ đạo của web bạn thay vì màu xanh gốc) */
+    display: inline-block;
+    margin-left: 2px;
+    animation: cursorBlink 0.8s infinite alternate; /* Hiệu ứng nhấp nháy từ framer-motion */
+}
+
+@keyframes cursorBlink {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* --- Particle Logo Styles --- */
+.particle-logo-container {
+    position: relative;
+    display: inline-block;
+    text-decoration: none; /* Xóa gạch chân link */
+    padding: 5px;          /* Tạo không gian cho các hạt bay */
+}
+
+.particle-text {
+    position: relative;
+    z-index: 10; /* Đảm bảo chữ nằm đè lên các hạt */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #20262c; /* Màu chữ cho Light mode */
+    /* Hiệu ứng bóng đổ và phát sáng nhẹ */
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.4); /* Màu tím #6366f1 với độ trong suốt */
+    filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.6));
+    
+    /* Animation xuất hiện (tái tạo motion.div của React) */
+    opacity: 0;
+    transform: scale(0.8);
+    animation: particleTextAppear 1s ease-out forwards;
+}
+
+@media (min-width: 768px) {
+    .particle-text {
+        font-size: 2rem; /* Kích thước lớn hơn trên màn hình to (tùy chọn) */
+    }
+}
+
+body.dark .particle-text {
+    color: #e2e8f0; /* Màu chữ cho Dark mode */
+}
+
+@keyframes particleTextAppear {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Định dạng chung cho các hạt particle */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none; /* Không chặn chuột click vào logo */
+    background-color: #6366f1; /* Màu tím chủ đạo */
+}
+
+/* Thêm vào cuối file styles.css */
+.highlight-text-container.sứ-mệnh {
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-highlight {
+    margin: 0 3px; /* Tăng khoảng cách giữa các từ highlight một chút */
+    display: inline-block; /* Giúp padding và margin hoạt động tốt hơn */
+}
+
+/* --- Info Section Styles (ADD NEW) --- */
+.info-container {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 6rem; /* Khoảng cách với phần hiệu ứng bên trên */
+    text-align: left;
+    padding: 0 2rem;
+    /* Đảm bảo container nằm giữa màn hình */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Cập nhật font cho Info Section --- */
+.info-subtitle,
+.info-title,
+.info-description {
+    /* Ưu tiên dùng Roboto, nếu không thì Nunito, cuối cùng là sans-serif */
+    font-family: 'Roboto', 'Nunito', sans-serif;
+}
+
+/* Nếu muốn tiêu đề khác biệt một chút, bạn có thể dùng Nunito cho tiêu đề */
+/* .info-title { font-family: 'Nunito', sans-serif; } */
+
+.info-section {
+    margin-bottom: 5rem; /* Khoảng cách giữa các mục */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Mục thứ 2 xuất hiện chậm hơn một chút */
+.info-section:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.info-subtitle {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: #6b7280;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.info-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.info-description {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #374151;
+}
+
+/* Dark Mode support */
+body.dark .info-subtitle { color: #9ca3af; }
+body.dark .info-title { color: #f9fafb; }
+body.dark .info-description { color: #d1d5db; }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .info-container {
+        margin-top: 4rem;
+        padding: 0 1.5rem;
+    }
+    .info-title {
+        font-size: 2rem;
+    }
+}
+
+/* --- FINAL FIXED FOOTER STYLES --- */
+
+/* Biến màu cho footer (Light/Dark mode) */
+:root {
+    --footer-bg: #ffffff;
+    --footer-text: #111827;
+    --footer-text-muted: #6b7280;
+    --footer-border: #e5e7eb;
+    --footer-accent: #6366f1; /* Màu tím chủ đạo của S.E.E */
+}
+
+body.dark {
+    --footer-bg: #0f172a;     /* Nền tối hơn cho dark mode */
+    --footer-text: #f9fafb;
+    --footer-text-muted: #9ca3af;
+    --footer-border: #1e293b;
+    --footer-accent: #818cf8;
+}
+
+.sera-footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 4rem 1.5rem 2rem;
+    margin-top: 6rem;
+    border-top: 1px solid var(--footer-border);
+    font-family: 'Inter', 'Roboto', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Responsive: Chia cột trên màn hình lớn */
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr; /* Cột đầu tiên rộng gấp đôi các cột link */
+    }
+}
+
+/* Cột 1: Thương hiệu */
+.footer-col-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.footer-logo-text {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--footer-accent), #db2777);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Hiệu ứng chữ gradient */
+}
+
+.footer-description {
+    color: var(--footer-text-muted);
+    font-size: 0.95rem;
+    max-width: 300px;
+    line-height: 1.5;
+}
+
+/* Social Icons - Đã fix lỗi dính chữ */
+.footer-socials {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--footer-border);
+    color: var(--footer-text-muted);
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: var(--footer-accent);
+    color: #fff;
+    transform: translateY(-3px); /* Hiệu ứng bay lên nhẹ khi hover */
+}
+
+/* Các cột Links */
+.footer-col-title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.2rem;
+    color: var(--footer-text);
+}
+
+.footer-link-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.footer-link-list a {
+    text-decoration: none;
+    color: var(--footer-text-muted);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.footer-link-list a:hover {
+    color: var(--footer-accent);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--footer-border);
+    color: var(--footer-text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- Back to Top Button Styles --- */
+.scrollToTopBtn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: fixed; /* Cố định vị trí */
+  bottom: 30px;    /* Cách đáy 30px */
+  right: 30px;     /* Cách phải 30px */
+  z-index: 999;    /* Luôn nổi trên cùng */
+  opacity: 0;      /* Mặc định ẩn đi */
+  visibility: hidden;
+  transform: translateY(20px); /* Hiệu ứng trượt lên khi xuất hiện */
+}
+
+/* Class này sẽ được JS thêm vào khi cuộn xuống */
+.scrollToTopBtn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scrollToTopBtn .svgIcon {
+  width: 12px;
+  transition-duration: 0.3s;
+}
+
+.scrollToTopBtn .svgIcon path {
+  fill: white;
+}
+
+.scrollToTopBtn:hover {
+  width: 140px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(181, 160, 255);
+  align-items: center;
+}
+
+.scrollToTopBtn:hover .svgIcon {
+  transition-duration: 0.3s;
+  transform: translateY(-200%);
+}
+
+.scrollToTopBtn::before {
+  position: absolute;
+  bottom: -20px;
+  content: "Lên đầu trang"; /* Đã việt hóa text */
+  color: white;
+  font-size: 0px;
+}
+
+.scrollToTopBtn:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  bottom: unset;
+  transition-duration: 0.3s;
+}
+
+/* --- Divider Styles --- */
+.divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 800px; /* Căn theo độ rộng của nội dung chính */
+    margin: 3rem auto; /* Khoảng cách trên dưới */
+    color: #6b7280; /* Màu chữ mặc định nếu có */
+}
+
+/* Đường kẻ */
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #e5e7eb; /* Màu đường kẻ light mode */
+}
+
+/* Chữ ở giữa (tùy chọn) */
+.divider-text {
+    padding: 0 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #9ca3af;
+}
+
+/* Các biến thể (variant) */
+.divider-dashed .divider-line {
+    background-color: transparent;
+    border-top: 1px dashed #e5e7eb;
+    height: 0;
+}
+
+.divider-dotted .divider-line {
+    background-color: transparent;
+    border-top: 2px dotted #e5e7eb;
+    height: 0;
+}
+
+/* Dark Mode cho Divider */
+body.dark .divider-line {
+    background-color: #374151; /* Màu đường kẻ dark mode */
+}
+
+body.dark .divider-dashed .divider-line {
+    background-color: transparent;
+    border-top-color: #374151;
+}
+
+body.dark .divider-dotted .divider-line {
+    background-color: transparent;
+    border-top-color: #374151;
+}
+
+body.dark .divider-text {
+    color: #6b7280;
+}
+
+/* Custom styles for the ASL Alphabet page */
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.alphabet-image {
+    width: 100%;          /* Trên màn hình nhỏ, ảnh sẽ chiếm hết chiều rộng cho phép */
+    max-width: 600px;     /* GIỚI HẠN: Ảnh sẽ không bao giờ to quá 600px */
+    height: auto;         /* Giữ nguyên tỷ lệ ảnh */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
+                0 6px 6px rgba(0, 0, 0, 0.15);
+    border: 3px solid #6366f1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.alphabet-image:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
+                0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Topic Page Styles --- */
+
+/* Grid layout cho các thẻ chủ đề */
+.topic-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Chia thành 4 cột bằng nhau */
+    gap: 2.5rem; /* Khoảng cách giữa các thẻ */
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto; /* Căn giữa grid trên trang */
+    justify-items: center; /* Căn giữa các thẻ trong ô lưới của nó */
+}
+
+/* Responsive: Trên màn hình nhỏ hơn thì giảm số cột */
+@media (max-width: 1024px) {
+    .topic-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 cột trên tablet ngang */
+    }
+}
+
+@media (max-width: 768px) {
+    .topic-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 cột trên tablet dọc */
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .topic-grid {
+        grid-template-columns: 1fr; /* 1 cột trên điện thoại */
+    }
+}
+
+/* --- Card Styles (From Uiverse.io by Pravins01) --- */
+/* Đã điều chỉnh nhẹ để phù hợp theme dark/light nếu cần */
+.card {
+  position: relative;
+  width: 190px;
+  height: 254px;
+  background-color: #1a1a1a; /* Màu nền thẻ tối hơn một chút cho sang */
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 12px;
+  gap: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  text-align: left; /* Căn trái nội dung trong thẻ cho dễ đọc */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Thêm chút bóng đổ nhẹ */
+}
+
+/* Giữ nguyên hiệu ứng gradient đẹp mắt */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -5px;
+  margin: auto;
+  width: 200px;
+  height: 264px;
+  border-radius: 10px;
+  background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+  z-index: -10;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+}
+
+.card .heading {
+  font-size: 20px;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.card p:not(.heading) {
+  font-size: 14px;
+}
+
+.card p:last-child {
+  color: #e81cff;
+  font-weight: 600;
+}
+
+.card:hover::after {
+  filter: blur(30px);
+}
+
+.card:hover::before {
+  transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
+}
+
+/* Thêm vào cuối file styles.css */
+
+/* Định dạng cho link "Bắt đầu học" trong thẻ card */
+.card .card-link {
+  color: #e81cff; /* Giữ nguyên màu hồng nổi bật */
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none; /* Bỏ gạch chân mặc định của link */
+  margin-top: auto; /* Đẩy link xuống dưới cùng thẻ nếu nội dung trên ngắn */
+  display: inline-block; /* Để có thể set margin/padding nếu cần */
+  transition: color 0.3s ease; /* Hiệu ứng đổi màu mượt mà */
+}
+
+.card .card-link:hover {
+  color: #40c9ff; /* Đổi sang màu xanh khi di chuột vào */
+  text-decoration: underline; /* Thêm gạch chân khi hover để rõ là link */
+}
